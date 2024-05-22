@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Personal Web Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,30 +58,28 @@
         }
         .gallery {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        .gallery img {
-            width: 100%;
-            height: auto;
+            overflow-x: auto;
+            scroll-behavior: smooth;
         }
         .gallery-item {
-            flex: 1 1 calc(33.333% - 20px);
-            box-sizing: border-box;
-            margin-bottom: 20px;
-            overflow: hidden;
+            flex: 0 0 auto;
+            margin-right: 10px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         @media (max-width: 768px) {
             .gallery-item {
-                flex: 1 1 calc(50% - 20px);
+                flex: 0 0 50%;
             }
         }
         @media (max-width: 480px) {
             .gallery-item {
-                flex: 1 1 100%;
+                flex: 0 0 100%;
             }
         }
     </style>
@@ -101,11 +100,11 @@
             </nav>
         </div>
     </header>
-    <section id="about" class="container">
+    <section id="about" class="container" data-aos="fade-up">
         <h2>About Me</h2>
         <p>Hello! I am [Your Name], a [Your Profession] with a passion for [Your Interests]. Welcome to my personal website where I showcase my projects and share a bit about myself.</p>
     </section>
-    <section id="projects" class="container">
+    <section id="projects" class="container" data-aos="fade-right">
         <h2>Projects</h2>
         <p>Here are some of my projects:</p>
         <ul>
@@ -113,19 +112,19 @@
             <li><a href="https://github.com/username/project2">Project 2</a></li>
         </ul>
     </section>
-    <section id="gallery" class="container">
+    <section id="gallery" class="container" data-aos="zoom-in">
         <h2>Gallery</h2>
-        <div class="gallery">
+        <div class="gallery" id="gallery">
             <div class="gallery-item">
-                <img src="images/p1.jpg" alt="Photo 1">
+                <img src="images/photo1.jpg" alt="Photo 1">
             </div>
             <div class="gallery-item">
-                <img src="images/p2.webp" alt="Photo 2">
+                <img src="images/photo2.jpg" alt="Photo 2">
             </div>
             <div class="gallery-item">
-                <img src="images/p3.jpg" alt="Photo 3">
+                <img src="images/photo3.jpg" alt="Photo 3">
             </div>
-            <!-- <div class="gallery-item">
+            <div class="gallery-item">
                 <img src="images/photo4.jpg" alt="Photo 4">
             </div>
             <div class="gallery-item">
@@ -133,15 +132,34 @@
             </div>
             <div class="gallery-item">
                 <img src="images/photo6.jpg" alt="Photo 6">
-            </div> -->
+            </div>
         </div>
     </section>
-    <section id="contact" class="container">
+    <section id="contact" class="container" data-aos="fade-up">
         <h2>Contact</h2>
         <p>You can reach me at [your email address] or follow me on <a href="https://twitter.com/yourusername">Twitter</a>.</p>
     </section>
     <footer>
         <p>&copy; 2024 My Personal Web Page</p>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Auto-scroll function for the gallery
+        const gallery = document.getElementById('gallery');
+        let scrollAmount = 0;
+        var scrollStep = 2; // Change this value to adjust scroll speed
+
+        function autoScroll() {
+            scrollAmount += scrollStep;
+            gallery.scrollLeft = scrollAmount;
+            if (scrollAmount >= gallery.scrollWidth - gallery.clientWidth || scrollAmount <= 0) {
+                scrollStep *= -1; // Reverse scroll direction
+            }
+        }
+
+        setInterval(autoScroll, 20); // Adjust interval time to control scroll speed
+    </script>
 </body>
 </html>
